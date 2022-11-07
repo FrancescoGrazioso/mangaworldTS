@@ -17,11 +17,11 @@ export interface Manga {
     yearStart: string;
     volumeNumber: number;
     chaptersNumber: number;
-    // chapters: Chapter[];
+    chapters: Chapter[];
     // relations: Manga[];
     visual: number;
     // animeWorldUrl: string;
     // anilistUrl: string;
-    // keywords: string[];
+    keywords: string[];
     response: string;
 }
