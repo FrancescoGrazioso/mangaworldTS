@@ -4,7 +4,7 @@ import { Manga } from './../model/Manga';
 import { JSDOM } from 'jsdom';
 import { Type } from '../model/Type';
 import { State } from '../model/State';
-const fetch = require('node-fetch');
+import fetch from 'node-fetch' ;
 
 export async function fetchHTMLWebPage(url: string) {
   const res = await fetch(url);
@@ -65,12 +65,12 @@ async function newManga(url: string, html: string) {
       state.state = div.querySelector('a')?.innerHTML;
     } else if (div.innerHTML.includes('>Visualizzazioni:')) {
       const parsedVisual = div.querySelectorAll('span')[1].innerHTML;
-      if (parsedVisual) visual = parseInt(parsedVisual);
+      if (parsedVisual) visual = parseInt(parsedVisual, 10);
     } else if (div.innerHTML.includes('>Anno di uscita:')) {
       yearStart = div.querySelector('a')?.innerHTML || '';
     } else if (div.innerHTML.includes('>Volumi totali:')) {
       const parsedVolume = div.querySelectorAll('span')[1].innerHTML;
-      if (parsedVolume) volumeNumber = parseInt(parsedVolume);
+      if (parsedVolume) volumeNumber = parseInt(parsedVolume, 10);
     } else if (div.innerHTML.includes('>Capitoli totali:')) {
       const parsedChapterNumber = div.querySelectorAll('span')[1].innerHTML;
       if (parsedChapterNumber) chaptersNumber = parseFloat(parsedChapterNumber);
@@ -95,7 +95,6 @@ async function newManga(url: string, html: string) {
   const chaptersDiv = document.querySelectorAll('div.chapter');
   Array.from(chaptersDiv).reverse().forEach(
     (div) => {
-      //console.log(div.innerHTML)
       let chapterNumber = '';
       const extractedNumbers = div.querySelector('a')?.querySelector('span')?.innerHTML.match(/\d+/g);
       if (extractedNumbers) {
@@ -119,7 +118,7 @@ async function newManga(url: string, html: string) {
   
 
   const manga: Manga = {
-    url: url,
+    url,
     title: mangaTitle,
     titleAlternative: mangaTitleAlternative,
     genres,
@@ -133,7 +132,7 @@ async function newManga(url: string, html: string) {
     chaptersNumber,
     plot,
     coverUrl,
-    response: 'html',
+    response: html,
     keywords,
     chapters
   };
