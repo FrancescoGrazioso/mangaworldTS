@@ -1,6 +1,7 @@
 import { Manga } from './../model/Manga';
 import { BASE_URL } from './Constants';
-import { fetchHTMLWebPage, parseHTML, parseManga } from './Scraper';
+import { fetchHTMLWebPage, parseHTML } from './scrapers/BaseScraper';
+import { parseManga } from './scrapers/MangaScraper';
 
 export async function searchManga(searchTerm: string) {
     const url = BASE_URL + 'archive?keyword=' + searchTerm;

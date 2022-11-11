@@ -1,21 +1,9 @@
-import { Chapter } from './../model/Chapter';
-import { Genre } from './../model/Genre';
-import { Manga } from './../model/Manga';
-import { JSDOM } from 'jsdom';
-import { Type } from '../model/Type';
-import { State } from '../model/State';
-import fetch from 'node-fetch' ;
-
-export async function fetchHTMLWebPage(url: string) {
-  const res = await fetch(url);
-  const html: string = await res.text();
-  return html;
-}
-
-export async function parseHTML(html: string) {
-  const dom = new JSDOM(html);
-  return dom.window.document;
-}
+import { Chapter } from '../../model/Chapter';
+import { Genre } from '../../model/Genre';
+import { Manga } from '../../model/Manga';
+import { Type } from '../../model/Type';
+import { State } from '../../model/State';
+import { fetchHTMLWebPage, parseHTML } from './BaseScraper';
 
 export async function parseManga(url: string) {
   const html = await fetchHTMLWebPage(url);

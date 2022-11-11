@@ -1,13 +1,14 @@
 export interface Chapter {
     url: string;
-    volume?: number;
+	title: string
     chapterNumber: number;
+    dateAdd: string;
+    response: string;
+    pageUrl?: string[];
     pageNumber?: number;
+
+    volume?: number;
     visual?: number;
     visualToday?: number;
-    pageUrl?: string[];
-    dateAdd: string;
     keywords?: string[];
-    response: string;
-	title: string
 }
