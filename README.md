@@ -1,6 +1,6 @@
 # mangaworld API
 
-![ts](https://flat.badgen.net/badge/-/TypeScript?icon=typescript&label&labelColor=blue&color=555555)(https://www.npmjs.com/package/mangaworld)
+[![ts](https://flat.badgen.net/badge/-/TypeScript?icon=typescript&label&labelColor=blue&color=555555)](https://www.npmjs.com/package/mangaworld)
 
 This implements many API that allow web scraping from the site [Mangaworld](https://www.mangaworld.so/).
 
@@ -60,6 +60,7 @@ const manga = await getMangaFromUrl('https://www.mangaworld.so/manga/1637/chains
 
 
 Queries are useful for searching for manga using keywords.
+Right now the only parameter accepted is the title of the manga.
 Let's see how it works
 
 ```js
