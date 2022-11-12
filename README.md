@@ -8,7 +8,7 @@ It implements:
 
 * Getting information of manga and chapters.
 * Searching manga by creating queries and querying the site.
-* Getting page url of chapters. (To be done)
+* Getting page url of chapters. 
 * Getting trending manga and new releases. (To be done)
 * Downloading the chapters. (To be done)
 ---
