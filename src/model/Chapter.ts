@@ -6,9 +6,9 @@ export interface Chapter {
     response: string;
     pageUrl?: string[];
     pageNumber?: number;
-
-    volume?: number;
+    keywords?: string[];
+    
     visual?: number;
     visualToday?: number;
-    keywords?: string[];
+    volume?: number;
 }

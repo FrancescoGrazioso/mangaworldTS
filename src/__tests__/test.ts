@@ -1,38 +1,45 @@
+import { getMangaFromUrl } from './../index';
 import { Manga } from './../model/Manga';
-import { getChapterDetail, searchMangaByKeywords } from '../index';
+import { getChapterDetail, searchMangaByKeywords, searchMangaURLsByKeywords } from '../index';
 
-const searchTerm = 'one piec'
+const searchTerm = 'one pi'
 
-// test ('Given keyword checks that e result is given',async () => {
-//   const mangaSearch = await searchMangaByKeywords(searchTerm);
-//   expect(mangaSearch.length).toBeGreaterThan(0);
-// })
+describe('Manga query utilities', () => {
+  test ('Given keyword checks that e result is given',async () => {
+    const mangaSearch = await searchMangaByKeywords(searchTerm);
+    expect(mangaSearch.length).toBeGreaterThan(0);
+  })
+})
 
-// test('Given a URL checks that a manga is responded', async () => {
-//   const mangaSearch = await searchMangaByKeywords(searchTerm);
-//   const manga: Manga = mangaSearch[0];
-//   expect(manga.title).not.toBe(undefined);
-// });
+describe('Manga info utilities', ()=>{
+  test('Given a URL checks that a manga is responded', async () => {
+    const manga: Manga = await getMangaFromUrl('https://www.mangaworld.so/manga/1848/blue-lock/');
+    expect(manga.title).not.toBe(undefined);
+  });
+  
+  test ('After reading a manga object checks that it has chapters',async () => {
+    const manga: Manga = await getMangaFromUrl('https://www.mangaworld.so/manga/1848/blue-lock/');
+    expect(manga.chapters.length).toBeGreaterThan(0);
+  })
+})
 
-// test ('After reading a manga object checks that it ha chapters',async () => {
-//   const mangaSearch = await searchMangaByKeywords(searchTerm);
-//   const manga: Manga = mangaSearch[0];
-//   expect(manga.chapters.length).toBeGreaterThan(0);
-// })
+describe('Chapter info utilities', ()=>{
+  test ('Checks that manga chapter is initialized correctly',async () => {
+    const mangaSearch = await searchMangaURLsByKeywords(searchTerm);
+    const manga: Manga = await getMangaFromUrl(mangaSearch[0]);
+    let chapter = manga.chapters[0];
+    expect(chapter.url).not.toBe(undefined);
+  })
+  
+  test ('Checks chapter detailed are retrieved correctly',async () => {
+    const mangaSearch = await searchMangaURLsByKeywords(searchTerm);
+    const manga: Manga = await getMangaFromUrl(mangaSearch[0]);
+    let chapter = manga.chapters[0];
+    chapter = await getChapterDetail(chapter);
 
-// test ('Checks that manga chapter is initialized correctly',async () => {
-//   const mangaSearch = await searchMangaByKeywords(searchTerm);
-//   const manga: Manga = mangaSearch[0];
-//   const chapter = manga.chapters[0];
-//   expect(chapter.url).not.toBe(undefined);
-// })
+    expect(chapter.pageUrl).not.toBe(undefined);
+    if(chapter.pageUrl) expect(chapter.pageUrl[0]).not.toBe(undefined);
 
-test ('Checks chapter detailed are retrieved correctly',async () => {
-  const mangaSearch = await searchMangaByKeywords(searchTerm);
-  const manga: Manga = mangaSearch[0];
-  let chapter = manga.chapters[0];
-  chapter = await getChapterDetail(chapter);
-  if (chapter.pageUrl) {
-    expect(chapter.pageUrl[0]).not.toBe(undefined);
-  }
+    expect(chapter.keywords?.length).toBeGreaterThan(0);
+  })
 })
