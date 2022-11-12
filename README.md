@@ -4,6 +4,10 @@
 
 This implements many API that allow web scraping from the site [Mangaworld](https://www.mangaworld.so/).
 
+THE API IS CURRENTLY UNDER DEVELOPMENT
+PLEASE KEEP THE IMPLEMENTATION UPDATED
+NEW FEATURES AND FIX WILL BE RELEASED
+
 It implements:
 
 * Getting information of manga and chapters.
