@@ -1,6 +1,6 @@
 {
   "name": "mangaworld",
-  "version": "0.0.8.1",
+  "version": "0.1.0",
   "description": "A TypeScript API for Mangaworld",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

@@ -18,10 +18,7 @@ export interface Manga {
     volumeNumber: number;
     chaptersNumber: number;
     chapters: Chapter[];
-    // relations: Manga[];
     visual: number;
-    // animeWorldUrl: string;
-    // anilistUrl: string;
     keywords: string[];
     response: string;
 }

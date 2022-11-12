@@ -41,5 +41,8 @@ describe('Chapter info utilities', ()=>{
     if(chapter.pageUrl) expect(chapter.pageUrl[0]).not.toBe(undefined);
 
     expect(chapter.keywords?.length).toBeGreaterThan(0);
+    expect(chapter.visual).toBeGreaterThan(0);
+    expect(chapter.visualToday).toBeGreaterThan(0);
+    expect(chapter.volume).toBeGreaterThan(0);
   })
 })

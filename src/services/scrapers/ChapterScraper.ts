@@ -8,9 +8,10 @@ export async function getChapterDetails(chapter: Chapter) {
   const document = await parseHTML(html);
 
   const pageUrl: string[] = [];
-//   let visual: number = 0;
-//   let visualToday: number = 0;
+  let visual: number = 0;
+  let visualToday: number = 0;
   let keywords: string[]= []
+  let volume: number = 0;
 
   const pagesDiv = document.getElementById('page');
   if (pagesDiv) {
@@ -20,21 +21,22 @@ export async function getChapterDetails(chapter: Chapter) {
     });
   }
 
-  // TOBE uncommented, there's a bug in retrieving info for visual, will fix later
+  const visualDiv = document.querySelector('div.has-shadow.top-wrapper.row');
+  if (visualDiv) {
+    Array.from(visualDiv?.children).forEach((div) => {
+      if (div.innerHTML.includes('Visualizzazioni:<')) {
+        const parsedVisual = div.innerHTML.slice(div.innerHTML.indexOf('</span>')+ 7).replace(/\D/g,'');
+        if (parsedVisual) visual = parseInt(parsedVisual, 10);
+      } else if (div.innerHTML.includes('Visualizzazioni di oggi:')) {
+        const parsedVisual = div.innerHTML.slice(div.innerHTML.indexOf('</span>')+ 7).replace(/\D/g,'');
+        if (parsedVisual) visualToday = parseInt(parsedVisual, 10);
+      }
+    });
+  }
 
-//   const visualDiv = document.querySelector('div.has-shadow.top-wrapper.row');
-//   if (visualDiv) {
-//     Array.from(visualDiv?.children).forEach((div) => {
-//       if (div.innerHTML.includes('Visualizzazioni:<')) {
-//         const parsedVisual = div.querySelectorAll('span')[0].innerHTML;
-//         console.log(div.innerHTML);
-//         if (parsedVisual) visual = parseInt(parsedVisual, 10);
-//       } else if (div.innerHTML.includes('Visualizzazioni di oggi:')) {
-//         const parsedVisual = div.querySelector('span')?.innerHTML;
-//         if (parsedVisual) visualToday = parseInt(parsedVisual, 10);
-//       }
-//     });
-//   }
+  const volumeElement: HTMLSelectElement|null = document.querySelector('select.volume');
+  if (volumeElement) volume = parseInt(volumeElement?.selectedOptions[0].innerHTML.replace(/\D/g,''), 10);
+
 
   const readerContainerChilds = document.getElementById('reader')?.children;
   if(readerContainerChilds) {
@@ -50,9 +52,10 @@ export async function getChapterDetails(chapter: Chapter) {
 
   chapter.pageUrl = pageUrl;
   chapter.pageNumber = pageUrl.length;
-//   chapter.visual = visual;
-//   chapter.visualToday = visualToday;
+  chapter.visual = visual;
+  chapter.visualToday = visualToday;
   chapter.keywords = keywords;
+  chapter.volume = volume;
 
   return chapter;
 }
