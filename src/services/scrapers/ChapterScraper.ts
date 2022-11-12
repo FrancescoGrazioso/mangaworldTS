@@ -8,8 +8,8 @@ export async function getChapterDetails(chapter: Chapter) {
   const document = await parseHTML(html);
 
   const pageUrl: string[] = [];
-  let visual: number = 0;
-  let visualToday: number = 0;
+//   let visual: number = 0;
+//   let visualToday: number = 0;
   let keywords: string[]= []
 
   const pagesDiv = document.getElementById('page');
@@ -20,8 +20,8 @@ export async function getChapterDetails(chapter: Chapter) {
     });
   }
 
-  //TOBE uncommented, there's a bug in retrieving info for visual, will fix later
-  
+  // TOBE uncommented, there's a bug in retrieving info for visual, will fix later
+
 //   const visualDiv = document.querySelector('div.has-shadow.top-wrapper.row');
 //   if (visualDiv) {
 //     Array.from(visualDiv?.children).forEach((div) => {
@@ -50,8 +50,8 @@ export async function getChapterDetails(chapter: Chapter) {
 
   chapter.pageUrl = pageUrl;
   chapter.pageNumber = pageUrl.length;
-  chapter.visual = visual;
-  chapter.visualToday = visualToday;
+//   chapter.visual = visual;
+//   chapter.visualToday = visualToday;
   chapter.keywords = keywords;
 
   return chapter;

@@ -1,4 +1,4 @@
-import { Chapter } from './../lib/model/Chapter.d';
+import { Chapter } from './model/Chapter';
 import { Manga } from './model/Manga';
 import { searchManga, searchMangaURLs } from "./services/Query";
 import { getChapterDetails } from './services/scrapers/ChapterScraper';
