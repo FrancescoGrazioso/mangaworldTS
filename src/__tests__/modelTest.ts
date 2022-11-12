@@ -1,5 +1,5 @@
-import { getMangaFromUrl } from './../index';
-import { Manga } from './../model/Manga';
+import { getMangaFromUrl } from '../index';
+import { Manga } from '../model/Manga';
 import { getChapterDetail, searchMangaByKeywords, searchMangaURLsByKeywords } from '../index';
 
 const searchTerm = 'one pi'

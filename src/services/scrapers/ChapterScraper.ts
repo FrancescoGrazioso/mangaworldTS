@@ -10,7 +10,7 @@ export async function getChapterDetails(chapter: Chapter) {
   const pageUrl: string[] = [];
   let visual: number = 0;
   let visualToday: number = 0;
-  let keywords: string[]= []
+  let keywords: string[] = [];
   let volume: number = 0;
 
   const pagesDiv = document.getElementById('page');
@@ -25,29 +25,26 @@ export async function getChapterDetails(chapter: Chapter) {
   if (visualDiv) {
     Array.from(visualDiv?.children).forEach((div) => {
       if (div.innerHTML.includes('Visualizzazioni:<')) {
-        const parsedVisual = div.innerHTML.slice(div.innerHTML.indexOf('</span>')+ 7).replace(/\D/g,'');
+        const parsedVisual = div.innerHTML.slice(div.innerHTML.indexOf('</span>') + 7).replace(/\D/g, '');
         if (parsedVisual) visual = parseInt(parsedVisual, 10);
       } else if (div.innerHTML.includes('Visualizzazioni di oggi:')) {
-        const parsedVisual = div.innerHTML.slice(div.innerHTML.indexOf('</span>')+ 7).replace(/\D/g,'');
+        const parsedVisual = div.innerHTML.slice(div.innerHTML.indexOf('</span>') + 7).replace(/\D/g, '');
         if (parsedVisual) visualToday = parseInt(parsedVisual, 10);
       }
     });
   }
 
-  const volumeElement: HTMLSelectElement|null = document.querySelector('select.volume');
-  if (volumeElement) volume = parseInt(volumeElement?.selectedOptions[0].innerHTML.replace(/\D/g,''), 10);
-
+  const volumeElement: HTMLSelectElement | null = document.querySelector('select.volume');
+  if (volumeElement) volume = parseInt(volumeElement?.selectedOptions[0].innerHTML.replace(/\D/g, ''), 10);
 
   const readerContainerChilds = document.getElementById('reader')?.children;
-  if(readerContainerChilds) {
-    Array.from(readerContainerChilds).forEach(
-        child => {
-            if (child.innerHTML.includes('Keywords:')) {
-                const keys = child.querySelector('h2')?.innerHTML.split(' - ');
-                if (keys) keywords = [...keys]
-            }
-        }
-    );
+  if (readerContainerChilds) {
+    Array.from(readerContainerChilds).forEach((child) => {
+      if (child.innerHTML.includes('Keywords:')) {
+        const keys = child.querySelector('h2')?.innerHTML.split(' - ');
+        if (keys) keywords = [...keys];
+      }
+    });
   }
 
   chapter.pageUrl = pageUrl;

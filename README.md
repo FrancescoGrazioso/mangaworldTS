@@ -13,7 +13,7 @@ It implements:
 * Getting information of manga and chapters.
 * Searching manga by creating queries and querying the site.
 * Getting page url of chapters. 
-* Getting trending manga and new releases. (To be done)
+* Getting trending manga and new releases. 
 * Downloading the chapters. (To be done)
 ---
 
@@ -22,6 +22,7 @@ It implements:
 * [Info](#info)
 * [Creting manga object](#creating-manga-object)
 * [Query](#query)
+* [Homepage](#homepage)
 
 ---
 
@@ -73,6 +74,30 @@ const manga = await searchMangaByKeywords('one piece');
 
 The `searchMangaByKeywords` function will return an array of `Manga` object,
 if none is find, the array will be empty
+
+### Homepage
+
+The homepage functions gives you a list of URLs directly from the homepage.
+The following functions show how to use it:
+
+```js
+// gives you a list of 12 trending manga urls
+const trend = await getTrendingMangas();
+
+// gives you the last 16 added manga
+const lastAdded = await getLastAddedMangas();
+
+// if you want other 16 just add the 
+// optional parameter to the function
+const otherLastAdded = await getLastAddedMangas(2);
+
+// gives you the top ten popular manga of the last month 
+const popular = await gtLastMonthPopularMangas();
+
+// if you want to get the object from one of them
+// just use the getMangaFromUrl function
+const manga = await getMangaFromUrl(popular[0]);
+```
 
 
 ## License
