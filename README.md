@@ -44,7 +44,7 @@ import { getMangaFromUrl } from "mangaworld";
 
 getMangaFromUrl('https://www.mangaworld.so/manga/1637/chainsaw-man').then(
     m => {
-        console.log(m)
+        //your code here...
     }
 )
 ```
