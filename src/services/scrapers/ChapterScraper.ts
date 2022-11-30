@@ -16,14 +16,14 @@ export async function getChapterDetails(chapter: Chapter) {
   const pagesDiv = document.getElementById('page');
   if (pagesDiv) {
     const pages = Array.from(pagesDiv?.querySelectorAll('img'));
-    pages.forEach((p) => {
+    pages.forEach((p:any) => {
       pageUrl.push(p.src);
     });
   }
 
   const visualDiv = document.querySelector('div.has-shadow.top-wrapper.row');
   if (visualDiv) {
-    Array.from(visualDiv?.children).forEach((div) => {
+    Array.from(visualDiv?.children).forEach((div:any) => {
       if (div.innerHTML.includes('Visualizzazioni:<')) {
         const parsedVisual = div.innerHTML.slice(div.innerHTML.indexOf('</span>') + 7).replace(/\D/g, '');
         if (parsedVisual) visual = parseInt(parsedVisual, 10);
@@ -39,7 +39,7 @@ export async function getChapterDetails(chapter: Chapter) {
 
   const readerContainerChilds = document.getElementById('reader')?.children;
   if (readerContainerChilds) {
-    Array.from(readerContainerChilds).forEach((child) => {
+    Array.from(readerContainerChilds).forEach((child:any) => {
       if (child.innerHTML.includes('Keywords:')) {
         const keys = child.querySelector('h2')?.innerHTML.split(' - ');
         if (keys) keywords = [...keys];

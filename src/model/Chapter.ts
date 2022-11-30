@@ -1,5 +1,6 @@
 export interface Chapter {
     url: string;
+    nextChapter?: Chapter;
 	title: string
     chapterNumber: number;
     dateAdd: string;

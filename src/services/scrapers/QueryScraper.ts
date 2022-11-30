@@ -10,7 +10,7 @@ export async function searchManga(searchTerm: string) {
   const html = await fetchHTMLWebPage(url);
   const document = await parseHTML(html);
 
-  const searchEntry = Array.from(document.querySelectorAll('div.entry'));
+  const searchEntry:HTMLDivElement[] = Array.from(document.querySelectorAll('div.entry'));
   for (const entry of searchEntry) {
     const mangaURL = entry.querySelector('a')?.href;
     if (mangaURL) {
@@ -29,7 +29,7 @@ export async function searchMangaURLs(searchTerm: string) {
   const html = await fetchHTMLWebPage(url);
   const document = await parseHTML(html);
 
-  const searchEntry = Array.from(document.querySelectorAll('div.entry'));
+  const searchEntry:HTMLDivElement[] = Array.from(document.querySelectorAll('div.entry'));
   for (const entry of searchEntry) {
     const mangaURL = entry.querySelector('a')?.href;
     if (mangaURL) {

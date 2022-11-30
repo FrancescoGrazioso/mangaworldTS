@@ -16,7 +16,7 @@ export async function getTrendingManga() {
   const document = await getHomepageDOM();
 
   const mangaDiv = document.getElementById('chapters-slide');
-  const entries = mangaDiv?.querySelectorAll('div.entry');
+  const entries:NodeListOf<Element> | undefined = mangaDiv?.querySelectorAll('div.entry');
   if (entries) {
     for (const e of Array.from(entries)) {
       const mangaURL = e.children[0].getAttribute('href');
@@ -33,7 +33,7 @@ export async function getLastAdded(pageIndex?: number) {
   const document = await getHomepageDOM(pageIndex);
 
   const mangaDiv = document.querySelector('div.comics-grid');
-  const entries = mangaDiv?.querySelectorAll('div.entry');
+  const entries:NodeListOf<Element> | undefined = mangaDiv?.querySelectorAll('div.entry');
   if (entries) {
     for (const e of Array.from(entries)) {
       const mangaURL = e.children[0].getAttribute('href');
@@ -50,7 +50,7 @@ export async function gtLastMonthPopular() {
   const document = await getHomepageDOM();
 
   const mangaDiv = document.querySelector('div.short')?.parentElement?.parentElement;
-  const entries = mangaDiv?.querySelectorAll('div.entry');
+  const entries:NodeListOf<Element> | undefined = mangaDiv?.querySelectorAll('div.entry');
   if (entries) {
     for (const e of Array.from(entries)) {
       const url = e.querySelectorAll('a')[0].getAttribute('href');

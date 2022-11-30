@@ -3,10 +3,15 @@ import { Manga } from './model/Manga';
 import { searchManga, searchMangaURLs } from './services/scrapers/QueryScraper';
 import { getChapterDetails } from './services/scrapers/ChapterScraper';
 import { getLastAdded, getTrendingManga, gtLastMonthPopular } from './services/scrapers/HomePageScraper';
-import { parseManga } from './services/scrapers/MangaScraper';
+import { parseManga, parseMangaBasicInfo } from './services/scrapers/MangaScraper';
 
 export const getMangaFromUrl = async (url: string) => {
   const manga = await parseManga(url);
+  return manga;
+};
+
+export const getMangaBasicInfoFromUrl = async (url: string) => {
+  const manga = await parseMangaBasicInfo(url);
   return manga;
 };
 
@@ -21,8 +26,8 @@ export const searchMangaURLsByKeywords = async (searchTerms: string) => {
 };
 
 export const getChapterDetail = async (chapter: Chapter) => {
-  chapter = await getChapterDetails(chapter);
-  return chapter;
+  const newChapter = await getChapterDetails(chapter);
+  return newChapter;
 };
 
 export const getTrendingMangas = async () => {

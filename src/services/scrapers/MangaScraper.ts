@@ -12,10 +12,17 @@ export async function parseManga(url: string) {
   return manga;
 }
 
+export async function parseMangaBasicInfo(url: string) {
+  const html = await fetchHTMLWebPage(url);
+  const manga: Manga = await newMangaBasic(url, html);
+
+  return manga;
+}
+
 async function newManga(url: string, html: string) {
   const document = await parseHTML(html);
-  const divCollection = Array.from(document.getElementsByClassName('info'));
-  const infoCollection = Array.from(divCollection[0].children);
+  const divCollection:any[] = Array.from(document.getElementsByClassName('info'));
+  const infoCollection:any[] = Array.from(divCollection[0].children);
   const mangaTitle = infoCollection[0].innerHTML;
 
   let mangaTitleAlternative = '';
@@ -32,19 +39,19 @@ async function newManga(url: string, html: string) {
   const chapters: Chapter[] = [];
 
   const divs = infoCollection[1].querySelectorAll('div');
-  divs.forEach((div) => {
+  divs.forEach((div:any) => {
     if (div.innerHTML.includes('Titoli alternativi:')) {
       mangaTitleAlternative = div.innerHTML.slice(divs[0].innerHTML.indexOf('</span>') + 7);
     } else if (div.innerHTML.includes('Generi:')) {
-      Array.from(div.querySelectorAll('a.p-1')).forEach((gen) => {
+      Array.from(div.querySelectorAll('a.p-1')).forEach((gen:any) => {
         genres.push({ genre: gen.innerHTML });
       });
     } else if (div.innerHTML.includes('Autore:')) {
-      Array.from(div.querySelectorAll('a')).forEach((aut) => {
+      Array.from(div.querySelectorAll('a')).forEach((aut:any) => {
         authors.push(aut.innerHTML);
       });
     } else if (div.innerHTML.includes('>Artista:')) {
-      Array.from(div.querySelectorAll('a')).forEach((art) => {
+      Array.from(div.querySelectorAll('a')).forEach((art:any) => {
         artists.push(art.innerHTML);
       });
     } else if (div.innerHTML.includes('>Tipo:')) {
@@ -69,7 +76,7 @@ async function newManga(url: string, html: string) {
   const coverUrl = document.querySelector('div.thumb')?.querySelector('img')?.getAttribute('src') || '';
   const keywordDiv = document.querySelector('div.single-comic')?.querySelectorAll('div.top-wrapper');
   if (keywordDiv) {
-    Array.from(keywordDiv).forEach((obj) => {
+    Array.from(keywordDiv).forEach((obj:any) => {
       if (obj.innerHTML.includes('Keywords')) {
         const tempKeyords = obj.innerHTML.slice(obj.innerHTML.indexOf('<br>') + 4).split(' - ');
         keywords = [...tempKeyords];
@@ -80,7 +87,7 @@ async function newManga(url: string, html: string) {
   const chaptersDiv = document.querySelectorAll('div.chapter');
   Array.from(chaptersDiv)
     .reverse()
-    .forEach((div) => {
+    .forEach((div:any) => {
       let chapterNumber = '';
       const extractedNumbers = div.querySelector('a')?.querySelector('span')?.innerHTML.match(/\d+/g);
       if (extractedNumbers) {
@@ -99,6 +106,9 @@ async function newManga(url: string, html: string) {
       };
 
       chapters.push(chapter);
+      if (chapters.length>1) {
+        chapters[chapters.length-2].nextChapter = chapter;
+      }
     });
 
   const manga: Manga = {
@@ -119,6 +129,24 @@ async function newManga(url: string, html: string) {
     response: html,
     keywords,
     chapters,
+  };
+
+  return manga;
+}
+
+async function newMangaBasic(url: string, html: string) {
+  const document = await parseHTML(html);
+  const divCollection:any[] = Array.from(document.getElementsByClassName('info'));
+  const infoCollection:any[] = Array.from(divCollection[0].children);
+  const mangaTitle = infoCollection[0].innerHTML;
+
+  const coverUrl = document.querySelector('div.thumb')?.querySelector('img')?.getAttribute('src') || '';
+
+  const manga: Manga = {
+    url,
+    title: mangaTitle,
+    coverUrl,
+    response: html,
   };
 
   return manga;
