@@ -1,4 +1,4 @@
-import { BASE_URL } from './../Constants';
+import { BASE_URL } from '../constants';
 import { fetchHTMLWebPage, parseHTML } from './BaseScraper';
 
 async function getHomepageDOM(pageIndex?: number) {

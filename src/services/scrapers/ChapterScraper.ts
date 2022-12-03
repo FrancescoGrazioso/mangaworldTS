@@ -1,4 +1,4 @@
-import { CHAPTER_SUFFIX } from './../Constants';
+import { CHAPTER_SUFFIX } from '../constants';
 import { Chapter } from '../../model/Chapter';
 import { fetchHTMLWebPage, parseHTML } from './BaseScraper';
 

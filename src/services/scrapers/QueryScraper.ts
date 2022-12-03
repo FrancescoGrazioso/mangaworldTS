@@ -1,5 +1,5 @@
 import { Manga } from '../../model/Manga';
-import { BASE_URL } from '../Constants';
+import { BASE_URL } from '../constants';
 import { fetchHTMLWebPage, parseHTML } from './BaseScraper';
 import { parseManga } from './MangaScraper';
 
