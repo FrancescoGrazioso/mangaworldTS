@@ -1,5 +1,6 @@
-import { BASE_URL } from '../constants';
 import { fetchHTMLWebPage, parseHTML } from './BaseScraper';
+
+const BASE_URL = 'https://www.mangaworld.so/';
 
 async function getHomepageDOM(pageIndex?: number) {
   let url = BASE_URL;

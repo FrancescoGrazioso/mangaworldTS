@@ -1,7 +1,8 @@
 import { Manga } from '../../model/Manga';
-import { BASE_URL } from '../constants';
 import { fetchHTMLWebPage, parseHTML } from './BaseScraper';
 import { parseManga } from './MangaScraper';
+
+const BASE_URL = 'https://www.mangaworld.so/';
 
 export async function searchManga(searchTerm: string) {
   const url = BASE_URL + 'archive?keyword=' + searchTerm;

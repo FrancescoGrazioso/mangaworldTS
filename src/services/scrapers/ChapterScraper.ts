@@ -1,6 +1,7 @@
-import { CHAPTER_SUFFIX } from '../constants';
 import { Chapter } from '../../model/Chapter';
 import { fetchHTMLWebPage, parseHTML } from './BaseScraper';
+
+const CHAPTER_SUFFIX = '?style=list';
 
 export async function getChapterDetails(chapter: Chapter) {
   const url = chapter.url + CHAPTER_SUFFIX;
