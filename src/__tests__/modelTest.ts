@@ -42,7 +42,7 @@ describe('Chapter info utilities', () => {
     expect(manga.chapters).not.toBeUndefined();
     if (manga.chapters) {
       let chapter = manga.chapters[0];
-      chapter = await getChapterDetail(chapter);
+      chapter = await getChapterDetail(chapter.url);
 
       expect(chapter.pageUrl).not.toBe(undefined);
       if (chapter.pageUrl) expect(chapter.pageUrl[0]).not.toBe(undefined);

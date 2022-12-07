@@ -25,8 +25,8 @@ export const searchMangaURLsByKeywords = async (searchTerms: string) => {
   return mangaResult;
 };
 
-export const getChapterDetail = async (chapter: Chapter) => {
-  const newChapter = await getChapterDetails(chapter);
+export const getChapterDetail = async (chapterURL: string) => {
+  const newChapter = await getChapterDetails(chapterURL);
   return newChapter;
 };
 

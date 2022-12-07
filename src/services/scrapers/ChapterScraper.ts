@@ -1,10 +1,10 @@
-import { Chapter } from '../../model/Chapter';
+import { Chapter } from './../../model/Chapter';
 import { fetchHTMLWebPage, parseHTML } from './BaseScraper';
 
 const CHAPTER_SUFFIX = '?style=list';
 
-export async function getChapterDetails(chapter: Chapter) {
-  const url = chapter.url + CHAPTER_SUFFIX;
+export async function getChapterDetails(chapter: string) {
+  const url = chapter + CHAPTER_SUFFIX;
   const html = await fetchHTMLWebPage(url);
   const document = await parseHTML(html);
 
@@ -47,13 +47,19 @@ export async function getChapterDetails(chapter: Chapter) {
       }
     });
   }
+  const chapterObject: Chapter = {
+    chapterNumber: 1, // mock
+    title: 'Titolo', // mock
+    dateAdd: '', // mock
+    url: chapter,
+    response: html,
+    pageUrl,
+    pageNumber : pageUrl.length,
+    visual,
+    visualToday,
+    keywords,
+    volume,
+  }
 
-  chapter.pageUrl = pageUrl;
-  chapter.pageNumber = pageUrl.length;
-  chapter.visual = visual;
-  chapter.visualToday = visualToday;
-  chapter.keywords = keywords;
-  chapter.volume = volume;
-
-  return chapter;
+  return chapterObject;
 }
